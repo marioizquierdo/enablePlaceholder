@@ -1,7 +1,7 @@
 EnablePlaceholder jQuery plugin
 ===============================
 
-This is a very simple and lightweight jQuery plugin which enables HTML5 placeholder behavior for old browsers.
+A very simple and lightweight jQuery plugin which enables HTML5 placeholder behavior for old browsers.
 
 There are many placeholder plugins out there, but could't find one that works with the robustness I needed.
 
@@ -25,7 +25,7 @@ There are many placeholder plugins out there, but could't find one that works wi
 
 ## Usage ##
 
-Download the [jquery.enablePlaceholder.min](https://github.com/marioizquierdo/enablePlaceholder/blob/master/jquery.enablePlaceholder.min.js) script (or the [uncompressed version](https://github.com/marioizquierdo/enablePlaceholder/blob/master/jquery.enablePlaceholder.js)).
+Download the [jquery.enablePlaceholder.min](https://github.com/marioizquierdo/enablePlaceholder/raw/master/jquery.enablePlaceholder.min.js) script (or the [uncompressed version](https://github.com/marioizquierdo/enablePlaceholder/raw/master/jquery.enablePlaceholder.js)).
 
 Load the jQuery library, and then, the enablePlaceholder plugin in your HTML head section:
 
