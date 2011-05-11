@@ -1,6 +1,6 @@
 /* 
  * EnablePlaceholder jQuery plugin.
- * Simple jQuery plugin that enables HTML5 placeholder functionallity for older browsers.
+ * https://github.com/marioizquierdo/enablePlaceholder
  * version 1.0 (May 11 2011)
  * 
  * Copyright (c) 2011 Mario Izquierdo
