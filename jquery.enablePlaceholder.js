@@ -53,7 +53,7 @@
           // Show again if input.val() is empty
           input.bind('blur', function(){
             if(input.val() == "") {
-              showPlaceholder(input, placeholder);
+              showPlaceholder(input, input.attr("placeholder"));
             }
           });
           
