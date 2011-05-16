@@ -100,3 +100,15 @@ HTML page with placeholder support for old browsers:
         </script>
     </body>
     </html>
+    
+## Changelog ##
+
+2011-05-16  needfeed <https://github.com/needfeed>
+
+  * bugfix: Allow for external updating of placeholder text
+
+2011-05-13  Mario Izquierdo Martinez <tothemario@gmail.com>
+
+  * Initial version
+  * Basic documentation and usage example in the README.md file
+  

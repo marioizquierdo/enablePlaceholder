@@ -1,7 +1,7 @@
 /* 
  * EnablePlaceholder jQuery plugin.
  * https://github.com/marioizquierdo/enablePlaceholder
- * version 1.0 (May 11 2011)
+ * version 1.0.1 (May 11 2011)
  * 
  * Copyright (c) 2011 Mario Izquierdo
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
