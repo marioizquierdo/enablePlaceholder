@@ -103,12 +103,17 @@ HTML page with placeholder support for old browsers:
     
 ## Changelog ##
 
+2011-05-31  Mario Izquierdo Martinez <tothemario@gmail.com>
+
+  * tag version 1.0.1
+  * bugfix: add semicolon to avoid problems when concatenated with other scripts
+
 2011-05-16  needfeed <https://github.com/needfeed>
 
   * bugfix: Allow for external updating of placeholder text
 
 2011-05-13  Mario Izquierdo Martinez <tothemario@gmail.com>
 
-  * Initial version
+  * Initial version (1.0.0)
   * Basic documentation and usage example in the README.md file
   
