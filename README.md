@@ -20,7 +20,7 @@ There are many placeholder plugins out there, but I could't find one that works 
 
 ## Requirements: ##
 
-  * [jQuery](http://jquery.com/) 1.3 or higher
+  * [jQuery](http://jquery.com/) 1.4 or higher
 
 
 ## Usage ##
@@ -105,7 +105,7 @@ HTML page with placeholder support for old browsers:
   * [Live demo](http://jsfiddle.net/tothemario/ePVZq/embedded/result/)
   * [jsFiddle Sandbox](http://jsfiddle.net/tothemario/ePVZq/)
   * [EnablePlaceholder project in plugins.jquery.com](http://plugins.jquery.com/project/EnablePlaceholder)
-  * [Wikipedia comparison of layout engines](http://en.wikipedia.org/wiki/Comparison_of_layout_engines_(HTML5))
+  * [Wikipedia comparison of layout engines](http://en.wikipedia.org/wiki/Comparison_of_layout_engines_(HTML5)) (search 'placeholder' to find in which browsers have native support)
     
 ## Changelog ##
 
