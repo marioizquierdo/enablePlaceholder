@@ -7,7 +7,7 @@
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
  * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  */
-(function($){
+;(function($){
   // Add jQuery.support.placeholder property to check HTML5 placeholder support
   $.support.placeholder = ('placeholder' in document.createElement('input'));
   
@@ -66,4 +66,4 @@
       });
     };
   };
-})(jQuery)
+})(jQuery);
