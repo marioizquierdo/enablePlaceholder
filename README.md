@@ -3,19 +3,20 @@ EnablePlaceholder jQuery plugin
 
 A very simple and lightweight jQuery plugin which enables HTML5 placeholder behavior for old browsers.
 
-There are many placeholder plugins out there, but I could't find one that works with the robustness I needed, so I created my own plugin for manage that, and it's only 1.4Kb.
+There are many placeholder plugins out there, but I could't find one that works with the robustness and flexibility I needed, so I created this one, and it's only 1.5Kb.
 
 
 ## Features ##
 
- * Automatically checks if the browser supports the HTML5 placeholder attribute and if it is supported, the script is not activated.
+ * Automatically checks if the browser supports the HTML5 placeholder attribute and if it is supported, the script is not activated
  * IE6 and other old browsers supported
  * It makes sure that the placeholder text is not submitted by the form (other placeholder plugins don't clear the input placeholder text before submitting the form)
- * It works even if the plugin is loaded late (other placeholder plugins clear the placeholder text on 'focus' but not on 'keydown', so if the user focus the field before the plugin is loaded, the placeholder text is not removed).
- * Allows the user to write exactly the same text as the placeholder, and recognizes it as non-placeholder text (other placeholder plugins only check if the placeholder is there by input.val() == placeholderText, but the user can write exactly the same text as the placeholder, right?).
+ * It works even if the plugin is loaded late (other placeholder plugins clear the placeholder text only on 'focus', so if the user focus the field before the plugin is loaded, the placeholder text is not removed).
+ * Allows the user to write exactly the same text as the placeholder, and recognizes it as non-placeholder text.
  * Has the option "withPlaceholderClass" that allow to change the CSS class added to the field element when the placeholder is present.
- * Adds the jQuery.support.placeholder attribute, that is true if the browser supports the HTML5 placeholder. After loading the plugin, this attribute is available for all JavaScript code in your application.
- * It doesn't support password placeholders (other placeholder plugins support that. This could be a future update if needed).
+ * Adds the jQuery.support.placeholder attribute to easily check if the browser supports the HTML5 placeholder.
+ * It doesn't support password placeholders but this is going to be the next update.
+ * Creates the jQuery method `enablePlaceholder()` to activate the placeholder behavior, that is enough for 99% of scenarios, but also create the functions `showPlaceholder()`, `clearPlaceholder()` and `updatePlaceholder(text)` to give great flexibility to the developer.
 
 
 ## Requirements: ##
@@ -23,7 +24,7 @@ There are many placeholder plugins out there, but I could't find one that works 
   * [jQuery](http://jquery.com/) 1.4 or higher
 
 
-## Usage ##
+## Intallation and Usage ##
 
 Download the [jquery.enablePlaceholder.min](https://github.com/marioizquierdo/enablePlaceholder/raw/master/jquery.enablePlaceholder.min.js) script (or the [uncompressed version](https://github.com/marioizquierdo/enablePlaceholder/raw/master/jquery.enablePlaceholder.js)).
 
@@ -56,12 +57,27 @@ In your stylesheets, add a different style to the placeholder texts:
 
 *Note*: be aware that some browsers do not support any styling on placeholder text, even they implement the HTML5 placeholder functionality ([more info on styling the HTML5 placeholder](http://blog.ajcw.com/2011/02/styling-the-html5-placeholder/)).
 
-My recommendation on this is to give the placeholder a light gray color.
-                   
+My recommendation on this is to give the placeholder a simple light gray color.
+
+## Methods ##
+
+Applied to a jQuery object, for example `$('[placeholder]').enablePlaceholder();`
+
+All them do nothing if the browser already supports the HTML5 placeholder attribute.
+
+  * `enablePlaceholder(options)`: The basic method that makes the element to simulate the HTML5 placeholder behavior.
+  * `showPlaceholder(options)`: Rarely needed, it shows the placeholder attribute if the value is empty.
+  * `clearPlaceholder(options)`: If the field is showing the placeholder text, then it's removed.
+  * `updatePlaceholder(new_placeholder_text, options)`: Change or add the placeholder attribute text, and update the value of the field if it is showing the placeholder text.
+  
+Options:
+
+  * `"withPlaceholderClass"`: this is the only option for now, to change the default CSS class "placeholder" that is added to the field when the placeholder text is being shown.
+
 
 ## Full Example ##
 
-HTML page with placeholder support for old browsers:
+HTML page with placeholder support for old browsers. This is a good simple example, but you can also see a [Live Demo](http://jsfiddle.net/tothemario/ePVZq/embedded/result/) or even play with the [jsFiddle Sandbox](http://jsfiddle.net/tothemario/ePVZq/).
 
     <!DOCTYPE html>
     <html>
@@ -85,7 +101,7 @@ HTML page with placeholder support for old browsers:
     </head>
     <body>
         <h1>jQuery EnablePlaceholder Demo</h1>
-        <form action="/">
+        <form action="/comment">
             <input type="text" placeholder="Write you username" name="username"/>
             <input type="password" placeholder="password"/>
             <textarea placeholder="Write a comment..." name="comment"></textarea>
@@ -100,13 +116,15 @@ HTML page with placeholder support for old browsers:
     </body>
     </html>
     
+
 ## Resources ##
 
   * [Live demo](http://jsfiddle.net/tothemario/ePVZq/embedded/result/)
   * [jsFiddle Sandbox](http://jsfiddle.net/tothemario/ePVZq/)
   * [EnablePlaceholder project in plugins.jquery.com](http://plugins.jquery.com/project/EnablePlaceholder)
-  * [Wikipedia comparison of layout engines](http://en.wikipedia.org/wiki/Comparison_of_layout_engines_(HTML5)) (search 'placeholder' to find in which browsers have native support)
+  * [Info on styling the HTML5 placeholder](http://blog.ajcw.com/2011/02/styling-the-html5-placeholder/)
     
+
 ## Changelog ##
 
 2011-05-31  Mario Izquierdo Martinez <tothemario@gmail.com>
