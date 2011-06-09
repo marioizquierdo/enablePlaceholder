@@ -21,12 +21,14 @@
     if(!$.support.placeholder) {
       var settings = $.extend({}, defaults, options);
       var showPlaceholder = function(input, placeholder) {
-        return input
-          .val(placeholder)
-          .addClass(settings["withPlaceholderClass"])
-          .data('hasPlaceholder', true);
+        if(input.val() === "") {
+          return input
+            .val(placeholder)
+            .addClass(settings["withPlaceholderClass"])
+            .data('hasPlaceholder', true);
+        }
       };
-      var clearPlaceholder = function(input, placeholder) {
+      var clearPlaceholder = function(input) {
         if(input.data('hasPlaceholder')) {
           return input
             .val("")
@@ -38,29 +40,30 @@
       return this.each(function(){
         var input = $(this);
         var placeholder = input.attr("placeholder");
-        if(placeholder != "") {
+        if(placeholder !== "") {
           
           // Show placeholder on page load
-          if(input.val() == "" || input.val() == placeholder) {
-            showPlaceholder(input, placeholder);
-          }
+          showPlaceholder(input, placeholder);
           
           // Hide on focus
           input.bind('focus keydown paste', function(){
-            clearPlaceholder(input, placeholder);
+            clearPlaceholder(input);
           });
     
           // Show again if input.val() is empty
           input.bind('blur', function(){
-            if(input.val() == "") {
-              showPlaceholder(input, input.attr("placeholder"));
-            }
+            showPlaceholder(input, input.attr("placeholder"));
           });
           
           // Clear placeholder on form submit
           input.parents('form').first().submit(function(){
-            clearPlaceholder(input, placeholder);
+            clearPlaceholder(input);
             return true;
+          });
+          
+          // Clear placeholder before leave or reload the page
+          $(window).unload(function() {
+            clearPlaceholder(input);
           });
         }
       });
