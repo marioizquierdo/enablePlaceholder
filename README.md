@@ -73,6 +73,22 @@ All them do nothing if the browser already supports the HTML5 placeholder attrib
 Options:
 
   * `"withPlaceholderClass"`: this is the only option for now, to change the default CSS class "placeholder" that is added to the field when the placeholder text is being shown.
+  
+Defaults: Instead of specify options on different places, you can specify the option default values in `jQuery.EnablePlaceholder.defaults`, so instead of this:
+
+    $('textarea').enablePlaceholder({"withPlaceholderClass": 'myclass'});
+    $('input').enablePlaceholder({"withPlaceholderClass": 'myclass'});
+    $('input#search').updatePlaceholder('search something', {"withPlaceholderClass": 'myclass'});
+    $('input#find').showPlaceholder({"withPlaceholderClass": 'only-once'});
+    
+You can write this:
+
+    $.EnablePlaceholder.defaults.withPlaceholderClass = 'myClass';
+    
+    $('textarea').enablePlaceholder();
+    $('input').enablePlaceholder();
+    $('input#search').updatePlaceholder('search something');
+    $('input#find').showPlaceholder({"withPlaceholderClass": 'only-once'});
 
 
 ## Full Example ##
