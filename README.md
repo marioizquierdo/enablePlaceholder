@@ -10,12 +10,12 @@ There are many placeholder plugins out there, but I could't find one that works 
 
  * Automatically checks if the browser supports the HTML5 placeholder attribute and if it is supported, the script is not activated
  * IE6 and other old browsers supported
+ * Password placeholders supported (using a text input as replacement)
  * It makes sure that the placeholder text is not submitted by the form (other placeholder plugins don't clear the input placeholder text before submitting the form)
  * It works even if the plugin is loaded late (other placeholder plugins clear the placeholder text only on 'focus', so if the user focus the field before the plugin is loaded, the placeholder text is not removed).
  * Allows the user to write exactly the same text as the placeholder, and recognizes it as non-placeholder text.
  * Has the option "withPlaceholderClass" that allow to change the CSS class added to the field element when the placeholder is present.
  * Adds the jQuery.support.placeholder attribute to easily check if the browser supports the HTML5 placeholder.
- * It doesn't support password placeholders but this is going to be the next update.
  * Creates the jQuery method `enablePlaceholder()` to activate the placeholder behavior, that is enough for 99% of scenarios, but also create the functions `showPlaceholder()`, `clearPlaceholder()` and `updatePlaceholder(text)` to give great flexibility to the developer.
 
 
