@@ -5,6 +5,12 @@ A very simple and lightweight jQuery plugin which enables HTML5 placeholder beha
 
 There are many placeholder plugins out there, but I could't find one that works with the robustness and flexibility I needed, so I created this one, and it's only 1.5Kb.
 
+Basic usage:
+
+    $("#input-with-placeholder").enablePlaceholder();
+
+You can check it out in the [live demo](http://jsfiddle.net/tothemario/ePVZq/embedded/result/).
+
 
 ## Features ##
 
@@ -49,19 +55,20 @@ In your markup, the following placeholder texts will be shown in both HTML5 and 
     
 In your stylesheets, add a different style to the placeholder texts:
 
-    ::-webkit-input-placeholder, /* native support for safari and chrome */
-    :-moz-placeholder,           /* native support for firefox */
-    .placeholder {               /* fallback solution by EnablePlaceholder ("withPlaceholderClass" option) */
-      color: #ccc;
-    }
+    ::-webkit-input-placeholder { color: #ccc; } /* native support for safari and chrome */
+    :-moz-placeholder { color: #ccc; }           /* native support for firefox */
+    .placeholder { color: #ccc; } /* fallback solution by EnablePlaceholder ("withPlaceholderClass" option) */
+
+*Note*: the styles have to be applied three times, if you use the comma separated selector it will not work.
 
 *Note*: be aware that some browsers do not support any styling on placeholder text, even they implement the HTML5 placeholder functionality ([more info on styling the HTML5 placeholder](http://blog.ajcw.com/2011/02/styling-the-html5-placeholder/)).
 
-My recommendation on this is to give the placeholder a simple light gray color.
+My recommendation on this is to give the placeholder a simple light gray color, the CSS color property is supported on most browsers, and for browsers that implement the placeholder tag but do not allow to style it, the default color is a light gray.
+
 
 ## Methods ##
 
-Applied to a jQuery object, for example `$('[placeholder]').enablePlaceholder();`
+Applied to a jQuery object, for example `$('input[placeholder]').enablePlaceholder();`
 
 All them do nothing if the browser already supports the HTML5 placeholder attribute.
 
@@ -105,14 +112,12 @@ HTML page with placeholder support for old browsers. This is a good simple examp
         <script src="jquery.enablePlaceholder.min.js"></script>
         
         <style>
-            input, textarea {color: #444;}
+            input, textarea { color: #444; }
         
             /* Match html5 placeholder elements, and the .placeholder class added by the plugin */
-            input::-webkit-input-placeholder, textarea::-webkit-input-placeholder,
-            input:-moz-placeholder, textarea:-moz-placeholder,
-            input.placeholder, textarea.placeholder {
-                color: #aaa;
-            }
+            ::-webkit-input-placeholder { color: #aaa; }
+            :-moz-placeholder { color: #aaa; }
+            .placeholder { color: #aaa; }
         </style>
     </head>
     <body>
