@@ -161,6 +161,12 @@ If you feel like you have a good fix, fork the project and send a pull request.
 
 ## Changelog ##
 
+2011-08-05  Mario Izquierdo Martinez <tothemario@gmail.com>
+
+  * tag version 1.0.3
+  * bugfix: IE no cursor on tabbing to some field types
+  * add jasmine specs
+
 2011-05-31  Mario Izquierdo Martinez <tothemario@gmail.com>
 
   * tag version 1.0.1

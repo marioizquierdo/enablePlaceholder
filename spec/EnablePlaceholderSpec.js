@@ -42,15 +42,15 @@ describe("enablePlaceholder Plugin", function() {
           expect(input).toShowPlaceholder();
         });
         
-        $.each(['focus', 'keydown', 'paste'], function(i, focus_event) {
+        $.each(['focus', 'focusin','keydown', 'paste'], function(i, focus_event) {
           
           describe("on "+ focus_event, function() {
             beforeEach(function() { input.trigger(focus_event); });
             
             it("should hide the placeholder", function() { expect(input).not.toShowPlaceholder(); });
             
-            describe("and then blur", function() {
-              beforeEach(function() { input.blur(); });
+            describe("and then focusout", function() {
+              beforeEach(function() { input.focusout(); });
               it("should show the placeholder again", function() {
                 expect(input).toShowPlaceholder();
               });

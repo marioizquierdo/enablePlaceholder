@@ -1,7 +1,7 @@
 /* 
  * EnablePlaceholder jQuery plugin.
  * https://github.com/marioizquierdo/enablePlaceholder
- * version 1.0.2 (May 11 2011)
+ * version 1.0.3 (Aug 5, 2011)
  * 
  * Copyright (c) 2011 Mario Izquierdo
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
@@ -28,12 +28,12 @@
         input.showPlaceholder(settings);
       
         // Hide on focus
-        input.bind('focus keydown paste', function(){
+        input.bind('focus focusin keydown paste', function(){
           input.clearPlaceholder(settings);
         });
 
         // Show again on focusout if input.val() is empty
-        input.bind('blur', function(){
+        input.bind('blur focusout', function(){
           input.showPlaceholder(settings);
         });
       
@@ -91,19 +91,20 @@
   
   
   // PRIVATE
+  var execute_plugin_method, hasPlaceholderAttribute;
   
   // Check basic constraints, extend options with defaults and run for each element.
-  var execute_plugin_method = function($elements, options, lambda) {
+  execute_plugin_method = function($elements, options, lambda) {
     if(!$.support.placeholder) {
       var settings = $.extend({}, $.EnablePlaceholder.defaults, options);
-      return $elements.each(function(){
+      return $elements.each(function() {
         var input = $(this);
         lambda(input, settings);
       });
     }
-  };
+  },
   
-  var hasPlaceholderAttribute = function(input) {
+  hasPlaceholderAttribute = function(input) {
     return (input.attr("placeholder") && input.attr("placeholder") !== "");
   };
 })(jQuery);
