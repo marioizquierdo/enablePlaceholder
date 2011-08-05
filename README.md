@@ -22,7 +22,7 @@ You can check it out in the [live demo](http://jsfiddle.net/tothemario/ePVZq/emb
  * Has the option "withPlaceholderClass" that allow to change the CSS class added to the field element when the placeholder is present.
  * Adds the jQuery.support.placeholder attribute to easily check if the browser supports the HTML5 placeholder.
  * It doesn't support password placeholders but this is going to be the next update.
- * Creates the jQuery method `enablePlaceholder()` to activate the placeholder behavior, that is enough for 99% of scenarios, but also create the functions `showPlaceholder()`, `clearPlaceholder()` and `updatePlaceholder(text)` to give great flexibility to the developer.
+ * Creates the jQuery method `enablePlaceholder()` to activate the placeholder behavior, that is enough for 99% of cases, but also has the functions `showPlaceholder()`, `clearPlaceholder()` and `updatePlaceholder(text)` to give extra flexibility to the developer.
 
 
 ## Requirements: ##
@@ -32,7 +32,7 @@ You can check it out in the [live demo](http://jsfiddle.net/tothemario/ePVZq/emb
 
 ## Intallation and Usage ##
 
-Download the [jquery.enablePlaceholder.min](https://github.com/marioizquierdo/enablePlaceholder/raw/master/jquery.enablePlaceholder.min.js) script (or the [uncompressed version](https://github.com/marioizquierdo/enablePlaceholder/raw/master/jquery.enablePlaceholder.js)).
+Download the [jquery.enablePlaceholder.min](https://github.com/marioizquierdo/enablePlaceholder/raw/master/src/jquery.enablePlaceholder.min.js) script (or the [uncompressed version](https://github.com/marioizquierdo/enablePlaceholder/raw/master/src/jquery.enablePlaceholder.js)).
 
 Load the jQuery library, and then, the enablePlaceholder plugin in your HTML head section:
 
@@ -145,6 +145,19 @@ HTML page with placeholder support for old browsers. This is a good simple examp
   * [EnablePlaceholder project in plugins.jquery.com](http://plugins.jquery.com/project/EnablePlaceholder)
   * [Info on styling the HTML5 placeholder](http://blog.ajcw.com/2011/02/styling-the-html5-placeholder/)
     
+## Contributing to enablePlaceholder ##
+
+You can easily test the plugin just cloning the github repository and opening the file `SpecRunner.html`.
+
+This will open and run the EnablePlaceholderSpec, that is a [Jasmine](http://pivotal.github.com/jasmine/) test suite. This way, you can play with the source code and run tests to be sure you didn't broke anything big.
+
+Also the live demo runs over jsfiddle, just open the fiddle and touch whatever you want.
+
+If you feel like you have a good fix, fork the project and send a pull request.
+
+
+
+
 
 ## Changelog ##
 
