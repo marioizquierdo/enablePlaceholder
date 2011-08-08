@@ -24,12 +24,12 @@
     return execute_plugin_method(this, options, function(input, settings) {
       
       // Hide on focus
-      input.bind('focus keydown paste', function(){
+      input.bind('focus focusin keydown paste', function(){
        $(this).clearPlaceholder(settings);
       });
 
       // Show again on focusout if input.val() is empty
-      input.bind('blur', function(){
+      input.bind('blur focusout', function(){
         $(this).showPlaceholder(settings);
       });
       
@@ -56,6 +56,8 @@
     return execute_plugin_method(this, options, function(input, settings) {
       
       if(input.val() === "") {
+        
+        // Password placeholder needs to clone a input[type=text] field to show the placeholder text
         if(input.attr('type') === "password") {
           if(!input.data('ph_text')) {
             var replacement = input.clone().attr('type', 'text')
@@ -70,6 +72,7 @@
           input.data('ph_text').attr('id', input.data('ph_id')).show();
           input = input.data('ph_text');
         }
+        
         input
           .val(input.attr("placeholder"))
           .addClass(settings.withPlaceholderClass)
@@ -83,6 +86,8 @@
   $.fn.clearPlaceholder = function(options) {
     return execute_plugin_method(this, options, function(input, settings) {
       if(input.data('ph_active')) {
+        
+        // Password placeholder needs to remove the input[type=text] field
         if(input.data('ph_pass')) {
           input.hide()
           .data('ph_pass')
@@ -93,6 +98,7 @@
           input.data('ph_text').remove();
           input.data({'ph_text': null, 'ph_active': false}).show();
         }
+        
         input
           .val("")
           .removeClass(settings.withPlaceholderClass)
