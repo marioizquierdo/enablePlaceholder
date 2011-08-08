@@ -27,7 +27,7 @@ You can give it a try in the [live demo](http://jsfiddle.net/tothemario/ePVZq/em
 
 ## Features ##
 
- * Automatically checks if the browser supports the HTML5 placeholder attribute and if it is supported, the script is not activated
+ * Automatically checks if the browser supports the HTML5 placeholder attribute and if it is supported, the script is not activated (although it can be activated for all browsers if needed)
  * IE6 and other old browsers supported
  * Password placeholders supported (implemented using a text input as replacement)
  * It makes sure that the placeholder text is not submitted by the form (other placeholder plugins don't clear the input placeholder text before submitting the form)
