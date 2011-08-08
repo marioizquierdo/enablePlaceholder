@@ -1,10 +1,12 @@
 beforeEach(function() {
   this.addMatchers({
-    toShowPlaceholder: function() {
+    toShowPlaceholder: function(options) {
       var $input = this.actual;
+      var options = options || {};
+      options.withPlaceholderClass = options.withPlaceholderClass || $.EnablePlaceholder.defaults.withPlaceholderClass;
       return(
         $input.val() === $input.attr('placeholder') && 
-        $input.hasClass($.EnablePlaceholder.defaults.withPlaceholderClass)
+        $input.hasClass(options.withPlaceholderClass)
       );
     }
   });

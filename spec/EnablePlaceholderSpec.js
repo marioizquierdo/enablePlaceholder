@@ -147,6 +147,27 @@ describe("enablePlaceholder Plugin", function() {
         
       });
     });
+    
+    describe("with option withPlaceholderClass", function() {
+      var phclass;
+      
+      beforeEach(function() { 
+        input = $('#form input[type=text][placeholder]');
+        phclass = 'myawesomeplacelolderclass';
+        input.enablePlaceholder({'withPlaceholderClass': phclass});
+      });
+      
+      it("should show the placeholder with the specified class", function() {
+        expect(input).toShowPlaceholder({'withPlaceholderClass': phclass});
+      });
+      
+      it("should keep the specified class if focusout and focusin again", function() {
+        input.focusin();
+        expect(input).not.toShowPlaceholder({'withPlaceholderClass': phclass});
+        input.focusout();
+        expect(input).toShowPlaceholder({'withPlaceholderClass': phclass});
+      });
+    });
 
   });
 });
