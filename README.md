@@ -5,11 +5,24 @@ A very simple and lightweight jQuery plugin which enables HTML5 placeholder beha
 
 There are many placeholder plugins out there, but I could't find one that works with the robustness and flexibility I needed, so I created this one, and it's only 1.5Kb.
 
-Basic usage:
+## Basic usage: ##
 
-    $("#input-with-placeholder").enablePlaceholder();
+JavaScript:
 
-You can check it out in the [live demo](http://jsfiddle.net/tothemario/ePVZq/embedded/result/).
+    $("input[placeholder], textarea[placeholder]").enablePlaceholder();
+    
+HTML:
+
+    <input type="text" placeholder="login"/>
+    <input type="password" placeholder="secret password"/>
+    <textarea placeholder="are you bored? type something here..."></textarea>
+
+CSS:
+
+    .placeholder { color: #CCC; }
+
+
+You can give it a try in the [live demo](http://jsfiddle.net/tothemario/ePVZq/embedded/result/).
 
 
 ## Features ##
