@@ -9,13 +9,14 @@
  */
 (function($){
   // Add jQuery.support.placeholder property to check HTML5 placeholder support
-  $.support.placeholder = false;//('placeholder' in document.createElement('input'));
+  $.support.placeholder = ('placeholder' in document.createElement('input'));
   
   // Options default values
   $.EnablePlaceholder = { 
     "defaults": {
-      "withPlaceholderClass": "placeholder"
-    }
+      "withPlaceholderClass": "placeholder",  // CSS class applied when the placeholder is shown
+    },
+    "alsoForModernBrowsers": false  // Modern HTML5 browsers already have placeholder support
   };
   
   // jQuery(selector).enablePlaceholder()
@@ -112,7 +113,7 @@
   
   // Check basic constraints, extend options with defaults and run for each element.
   execute_plugin_method = function($elements, options, lambda) {
-    if(!$.support.placeholder) {
+    if(!$.support.placeholder || $.EnablePlaceholder.alsoForModernBrowsers) {
       var settings = $.extend({}, $.EnablePlaceholder.defaults, options);
       return $elements.each(function() {
         var input = $(this);
