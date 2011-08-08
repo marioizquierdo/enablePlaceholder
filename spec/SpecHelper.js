@@ -1,14 +1,17 @@
 beforeEach(function() {
   this.addMatchers({
     toShowPlaceholder: function() {
-      var jqelement = this.actual;
-      return (jqelement.val() === jqelement.attr('placeholder')) && 
-        jqelement.hasClass($.EnablePlaceholder.defaults.withPlaceholderClass);
+      var $input = this.actual;
+      return(
+        $input.val() === $input.attr('placeholder') && 
+        $input.hasClass($.EnablePlaceholder.defaults.withPlaceholderClass)
+      );
     }
   });
 });
 
 JasmineHelper = {
+  
   alert_support_placeholder_trick: function() {
     alert('You browser already supports the HTML5 placeholder property.\n\
 To make the rest of specs pass, $.support.placeholder is manually set to false, to trick the browser.\n\
@@ -29,8 +32,24 @@ To have a more reliable result, please run specs on an older browser.');
   clear_text_in: function(field) {
     field.focus().keydown().val('').keyup();
     return field;
-  }
+  },
   
-  // more helper functions here
+  expectToShowPasswordPlaceholder: function(passfield) {
+    var replacement = passfield.data('ph_text');
+    return(
+      expect(replacement).toShowPlaceholder() &&
+      expect(replacement).toBeVisible() &&
+      expect(passfield).toBeHidden()
+    );
+  }  ,
+
+  expectToNotShowPasswordPlaceholder: function(passfield) {
+    var replacement = passfield.data('ph_text');
+    return(
+      expect(passfield).not.toShowPlaceholder() &&
+      expect(replacement).toBeHidden() &&
+      expect(passfield).toBeVisible()
+    );
+  }
 };
 

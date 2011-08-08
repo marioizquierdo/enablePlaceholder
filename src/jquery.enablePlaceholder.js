@@ -9,7 +9,7 @@
  */
 (function($){
   // Add jQuery.support.placeholder property to check HTML5 placeholder support
-  $.support.placeholder = ('placeholder' in document.createElement('input'));
+  $.support.placeholder = false;//('placeholder' in document.createElement('input'));
   
   // Options default values
   $.EnablePlaceholder = { 
@@ -23,15 +23,9 @@
   $.fn.enablePlaceholder = function(options) {
     return execute_plugin_method(this, options, function(input, settings) {
       
-      // Hide on focus
-      input.bind('focus focusin keydown paste', function(){
-        input.clearPlaceholder(settings);
-      });
-      
-      // Show again on focusout if input.val() is empty
-      input.bind('blur focusout', function(){
-        input.showPlaceholder(settings);
-      });
+      // Hide placeholder on focusin and show again on focusout if input.val() is empty
+      on_focusin_clear_placeholder(input, settings);
+      on_focusout_show_placeholder(input, settings);
       
       // Clear placeholder on form submit
       input.parents('form').first().submit(function(){
@@ -57,13 +51,12 @@
       
       if(input.val() === "") {
         
-        // Password placeholder needs to clone a input[type=text] field to show the placeholder text
+        // Password placeholder needs to clone a input[type=text] field replacement to show the placeholder text
         if(input.attr('type') === "password") {
           if(!input.data('ph_text')) {
-            var replacement = input.clone().attr('type', 'text')
-              .removeAttr('name')
-              .data({'ph_pass': input, 'ph_id': input.attr('id'), 'ph_active': true})
-              .bind('focus', function(){ $(this).clearPlaceholder(settings); });
+            var replacement = input.clone().attr('type', 'text').removeAttr('name')
+              .data({'ph_pass': input, 'ph_id': input.attr('id'), 'ph_active': true});
+            on_focusin_clear_placeholder(replacement, settings);
             input
               .data({'ph_text': replacement, 'ph_id': input.attr('id'), 'ph_active': true})
               .before(replacement);
@@ -88,15 +81,12 @@
       if(input.data('ph_active')) {
         
         // Password placeholder needs to remove the input[type=text] field
-        if(input.data('ph_pass')) {
-          input.hide()
-          .data('ph_pass')
-            .attr('id', input.removeAttr('id').data('ph_id'))
-            .show().data('ph_active', false).focus();
+        if(input.data('ph_pass')) { // if this is the replacement (ph_pass is a pointer to the password field)
+          input.data('ph_pass').clearPlaceholder(settings).show().focus(); // delegate the event handler to the password field
         }
-        if(input.data('ph_text')) {
-          input.data('ph_text').remove();
-          input.data({'ph_text': null, 'ph_active': false}).show();
+        if(input.data('ph_text')) { // if this is the original password field (ph_text is a pointer to the replacement)
+          input.data('ph_text').attr('id', null).hide(); // remove replacement
+          input.attr('id', input.data('ph_id')).data('ph_text', null);
         }
         
         input
@@ -118,7 +108,7 @@
   
   
   // PRIVATE
-  var execute_plugin_method;
+  var execute_plugin_method, on_focusin_clear_placeholder, on_focusout_show_placeholder;
   
   // Check basic constraints, extend options with defaults and run for each element.
   execute_plugin_method = function($elements, options, lambda) {
@@ -129,6 +119,18 @@
         lambda(input, settings);
       });
     }
+  };
+  
+  on_focusin_clear_placeholder = function(input, options) {
+    input.bind('focus focusin keydown paste', function(){
+      input.clearPlaceholder(options);
+    });
+  };
+  
+  on_focusout_show_placeholder = function(input, settings) {
+    input.bind('blur focusout', function(){
+      input.showPlaceholder(settings);
+    });
   };
 
 })(jQuery);
