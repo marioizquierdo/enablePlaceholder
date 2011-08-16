@@ -188,6 +188,13 @@ If you feel like you have a good fix, fork the project and send a pull request.
 
 ## Changelog ##
 
+2011-08-16  Mario Izquierdo Martinez <tothemario@gmail.com>
+
+  * tag version 1.1.1
+  * bugfix: syntax error only in IE
+  * bugfix: clone() password input not working on IE
+  * jslint code quality check
+
 2011-08-08  Mario Izquierdo Martinez <tothemario@gmail.com>
 
   * tag version 1.1
