@@ -24,8 +24,7 @@ describe("enablePlaceholder Plugin", function() {
   });
   
   describe("enablePlaceholder()", function() {
-    var input; // input[type=text] input[type=password] or textarea
-    var replacement; // password textfield replacement
+    var input; // input[type=text] or textarea
     
     $.each([
         {name: 'input[type=text]', selector: '#form input[type=text][placeholder]'},
@@ -86,66 +85,6 @@ describe("enablePlaceholder Plugin", function() {
         expect($('#form input[type=text][placeholder]')).not.toShowPlaceholder();
       });
       
-    });
-    
-    
-    describe("on a password field", function() {
-      beforeEach(function() {
-        input = $('#form input[type=password][placeholder]');
-        expect(input).toExist();
-        input_id = input.attr('id');
-        input.enablePlaceholder();
-        replacement = input.data('ph_text');
-      });
-      
-      it("should have a text field as replacement to show the placeholder text", function() {
-        expect(replacement).toExist();
-        expect(replacement.attr('type')).toEqual('text');
-        expect(replacement.attr('placeholder')).toEqual(input.attr('placeholder'));
-        expect(replacement).toBe('#'+input_id);
-        expect(input).not.toBe('#'+input_id);
-      });
-      
-      it("should show the placeholder", function() {
-        JasmineHelper.expectToShowPasswordPlaceholder(input);
-      });
-      
-      $.each(['focus', 'focusin', 'keydown', 'paste'], function(i, focus_event) {
-        
-        describe("on "+ focus_event, function() {
-          beforeEach(function() { replacement.trigger(focus_event); });
-          
-          it("should hide the placeholder", function() {
-            JasmineHelper.expectToNotShowPasswordPlaceholder(input);
-          });
-          
-          describe("and then focusout", function() {
-            beforeEach(function() { input.focusout(); replacement = input.data('ph_text'); });
-            it("should show the placeholder again", function() {
-              JasmineHelper.expectToShowPasswordPlaceholder(input);
-            });
-          });
-          
-          describe("after write something", function() {
-            beforeEach(function() { JasmineHelper.type_something_in(input); });
-            it("should not be empty", function() { expect(input.val()).not.toBeEmpty(); });
-            it("should not show the placeholder", function() { JasmineHelper.expectToNotShowPasswordPlaceholder(input); });
-            describe("and then focusout", function() {
-              beforeEach(function() { input.focusout(); });
-              it("should not be empty", function() { expect(input.val()).not.toBeEmpty(); });
-              it("should not show the placeholder", function() { JasmineHelper.expectToNotShowPasswordPlaceholder(input); });
-            });
-          });
-          
-          describe("after write the same text as the placeholder", function() {
-            beforeEach(function() { JasmineHelper.type_same_text_as_placeholder_in(input); });
-            it("should have the placeholder text", function() { expect(input.val()).toEqual(input.attr('placeholder')); });
-            it("should not show the placeholder", function() { JasmineHelper.expectToNotShowPasswordPlaceholder(input); });
-          });
-          
-        });
-        
-      });
     });
     
     describe("with option withPlaceholderClass", function() {

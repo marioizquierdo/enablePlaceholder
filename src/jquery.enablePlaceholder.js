@@ -7,6 +7,7 @@
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
  * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  */
+"use strict"; // http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
 (function ($) {
   // Add jQuery.support.placeholder property to check HTML5 placeholder support
   $.support.placeholder = document.createElement('input').placeholder !== undefined;
@@ -20,7 +21,7 @@
   };
   
   // PRIVATE functions
-  var execute_plugin_method, on_focusin_clear_placeholder, on_focusout_show_placeholder, clone_input_as_text_field;
+  var execute_plugin_method, on_focusin_clear_placeholder, on_focusout_show_placeholder;
   
   // Check basic constraints, extend options with defaults and run for each element.
   execute_plugin_method = function ($elements, options, lambda) {
@@ -45,19 +46,6 @@
     });
   };
   
-  
-  // Return an object of element attributes
-  clone_input_as_text_field = function (input) {
-    var element = input.get(0), // get html element from the jquery object
-      attrs = {}, // element attributes
-      jq_attr = /^jQuery\d+$/;
-    $.each(element.attributes, function (i, attr) {
-      if (attr.specified && !jq_attr.test(attr.name)) {
-        attrs[attr.name] = attr.value;
-      }
-    });
-    return $('<input>').attr($.extend(attrs, {'type': 'text'}));
-  };
   
   // ------------------------------------------------------------
   // PLUGIN METHODS
@@ -93,25 +81,7 @@
   // Shows the value on the placeholder attribute if empty
   $.fn.showPlaceholder = function (options) {
     return execute_plugin_method(this, options, function (input, settings) {
-      
       if (input.val() === "") {
-        
-        // Password placeholder needs to clone a input[type=text] field replacement to show the placeholder text
-        if (input.attr('type') === "password") {
-          if (!input.data('ph_text')) {
-            // IE < 9 does not allow changing the type of password inputs, and input.clone() does not work
-            var replacement = clone_input_as_text_field(input)
-              .data({'ph_pass': input, 'ph_id': input.attr('id'), 'ph_active': true});
-            input
-              .data({'ph_text': replacement, 'ph_id': input.attr('id'), 'ph_active': true})
-              .before(replacement);
-            on_focusin_clear_placeholder(replacement, settings);
-          }
-          input = input.removeAttr('id').hide();
-          input.data('ph_text').attr('id', input.data('ph_id')).show();
-          input = input.data('ph_text');
-        }
-        
         input
           .val(input.attr("placeholder"))
           .addClass(settings.withPlaceholderClass)
@@ -124,17 +94,7 @@
   // Clear the placeholder value if was set before
   $.fn.clearPlaceholder = function (options) {
     return execute_plugin_method(this, options, function (input, settings) {
-      if (input.data('ph_active')) {
-        
-        // Password placeholder needs to remove the input[type=text] field
-        if (input.data('ph_pass')) { // if this is the replacement (ph_pass is a pointer to the password field)
-          input.data('ph_pass').clearPlaceholder(settings).show().focus(); // delegate the event handler to the password field
-        }
-        if (input.data('ph_text')) { // if this is the original password field (ph_text is a pointer to the replacement)
-          input.data('ph_text').attr('id', null).hide(); // remove replacement
-          input.attr('id', input.data('ph_id')).data('ph_text', null);
-        }
-        
+      if (input.data('ph_active')) {        
         input
           .val("")
           .removeClass(settings.withPlaceholderClass)

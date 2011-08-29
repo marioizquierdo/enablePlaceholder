@@ -34,24 +34,6 @@ To have a more reliable result, please run specs on an older browser.');
   clear_text_in: function(field) {
     field.focus().keydown().val('').keyup();
     return field;
-  },
-  
-  expectToShowPasswordPlaceholder: function(passfield) {
-    var replacement = passfield.data('ph_text');
-    return(
-      expect(replacement).toShowPlaceholder() &&
-      expect(replacement).toBeVisible() &&
-      expect(passfield).toBeHidden()
-    );
-  }  ,
-
-  expectToNotShowPasswordPlaceholder: function(passfield) {
-    var replacement = passfield.data('ph_text');
-    return(
-      expect(passfield).not.toShowPlaceholder() &&
-      expect(replacement).toBeHidden() &&
-      expect(passfield).toBeVisible()
-    );
   }
 };
 

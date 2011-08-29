@@ -1,9 +1,13 @@
 EnablePlaceholder jQuery plugin
 ===============================
 
-A very simple and lightweight jQuery plugin which enables HTML5 placeholder behavior for old browsers.
+A very simple and lightweight jQuery plugin which enables HTML5 placeholder behavior for old browsers,
+focused on KISS principle, it does not support password placeholders.
 
-There are many placeholder plugins out there, but I could't find one that works with the robustness and flexibility I needed, so I created this one, and it's only 1.5Kb.
+Compared to many other placeholder plugins out there, 
+this one I think is better to enable placeholders in search inputs, text fields, 
+text areas, etc. (anything but a password field), 
+because is small while keeping the needed reliability and robustness.
 
 ## Basic usage: ##
 
@@ -14,7 +18,6 @@ JavaScript:
 HTML:
 
     <input type="text" placeholder="login"/>
-    <input type="password" placeholder="secret password"/>
     <textarea placeholder="are you bored? type something here..."></textarea>
 
 CSS:
@@ -27,15 +30,15 @@ You can give it a try in the [live demo](http://jsfiddle.net/tothemario/ePVZq/em
 
 ## Features ##
 
- * Automatically checks if the browser supports the HTML5 placeholder attribute and if it is supported, the script is not activated (although it can be activated for all browsers if needed)
+ * Automatically checks if the browser supports the HTML5 placeholder attribute and if it is supported, the script is not activated (although it can be activated for all browsers to ensure the same visual result)
  * IE6 and other old browsers supported
- * Password placeholders supported (implemented using a text input as replacement)
+ * Password placeholders NOT supported, in favor of performance, robustness and compatibility
  * It makes sure that the placeholder text is not submitted by the form (other placeholder plugins don't clear the input placeholder text before submitting the form)
- * It works even if the plugin is loaded late (other placeholder plugins clear the placeholder text only on 'focus', so if the user focus the field before the plugin is loaded, the placeholder text is not removed).
- * Allows the user to write exactly the same text as the placeholder, and recognizes it as non-placeholder text.
- * Has the option "withPlaceholderClass" that allow to change the CSS class added to the field element when the placeholder is present.
- * Adds the jQuery.support.placeholder attribute to easily check if the browser supports the HTML5 placeholder.
- * Creates the jQuery method `enablePlaceholder()` to activate the placeholder behavior, that is enough for most of cases, but also has the functions `showPlaceholder()`, `clearPlaceholder()` and `updatePlaceholder(text)` to give extra flexibility to the developer.
+ * It works even if the plugin is loaded late (other placeholder plugins clear the placeholder text only on 'focus', so if the user focus the field before the plugin is loaded, the placeholder text is not removed)
+ * Allows the user to write exactly the same text as the placeholder, and recognizes it as non-placeholder text
+ * Has the option "withPlaceholderClass" that allow to change the CSS class added to the field element when the placeholder is present
+ * Adds the jQuery.support.placeholder attribute to easily check if the browser supports the HTML5 placeholder
+ * Creates the jQuery method `enablePlaceholder()` to activate the placeholder behavior, that is enough for most of cases, but also has the functions `showPlaceholder()`, `clearPlaceholder()` and `updatePlaceholder(text)` to give extra flexibility to the developer
 
 
 ## Requirements: ##
@@ -80,7 +83,7 @@ In your stylesheets, add a different style to the placeholder texts:
     :-moz-placeholder { color: #ccc; }           /* native support for firefox */
     .placeholder { color: #ccc; } /* fallback solution by EnablePlaceholder ("withPlaceholderClass" option) */
 
-*Note*: the styles have to be applied three times, if you use the comma separated selector it will not work.
+*Note*: the styles have to be repeated three times, if you use the comma separated selector it will not work.
 
 *Note*: be aware that some browsers do not support any styling on placeholder text, even they implement the HTML5 placeholder functionality ([more info on styling the HTML5 placeholder](http://blog.ajcw.com/2011/02/styling-the-html5-placeholder/)).
 
@@ -151,14 +154,13 @@ HTML page with placeholder support for old browsers. This is a good simple examp
         <h1>jQuery EnablePlaceholder Demo</h1>
         <form action="/comment">
             <input type="text" placeholder="Write you username" name="username"/>
-            <input type="password" placeholder="password"/>
             <textarea placeholder="Write a comment..." name="comment"></textarea>
             <input type="submit"/>
         </form>
         
         <script>
             jQuery(function($) { 
-                $('input[type=text][placeholder], input[type=password][placeholder], textarea[placeholder]').enablePlaceholder();
+                $('input[type=text][placeholder], textarea[placeholder]').enablePlaceholder();
             });
         </script>
     </body>
@@ -187,6 +189,11 @@ If you feel like you have a good fix, fork the project and send a pull request.
 
 
 ## Changelog ##
+
+2011-08-16  Mario Izquierdo Martinez <tothemario@gmail.com>
+
+  * tag version 1.2
+  * password support removed because could not fix IE errors in time
 
 2011-08-16  Mario Izquierdo Martinez <tothemario@gmail.com>
 
