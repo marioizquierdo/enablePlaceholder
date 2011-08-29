@@ -180,17 +180,29 @@ You can easily test the plugin just cloning the github repository and opening th
 
 This will open and run the EnablePlaceholderSpec, that is a [Jasmine](http://pivotal.github.com/jasmine/) test suite. This way, you can play with the source code and run tests to be sure you didn't broke anything big.
 
-Also the live demo runs over jsfiddle, just open the fiddle and touch whatever you want.
+Also the live demo runs over [jsfiddle](http://jsfiddle.net/tothemario/ePVZq/), just open the fiddle and touch whatever you want.
 
 If you feel like you have a good fix, fork the project and send a pull request.
 
+To develop I use [coffee-script](http://jashkenas.github.com/coffee-script/). To compile a .coffee file:
+
+    $ coffee -w -c src/jquery.enablePlaceholder.coffee
+    
+And then, you'll need to update the minified file (jquery.enablePlaceholder.min.js),
+what I do is copy-paste in an online minimizer like this [online YUI compressor](http://www.refresh-sf.com/yui/)
 
 
 
 
 ## Changelog ##
 
-2011-08-16  Mario Izquierdo Martinez <tothemario@gmail.com>
+2011-08-29  Mario Izquierdo Martinez <tothemario@gmail.com>
+
+  * tag version 1.2.1
+  * bugfix: clearPlaceholder has to remove the placeholder attribute to not show it in new browsers
+  * rewrite plugin code and spec in coffee script
+
+2011-08-29  Mario Izquierdo Martinez <tothemario@gmail.com>
 
   * tag version 1.2
   * password support removed because could not fix IE errors in time
