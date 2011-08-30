@@ -1,7 +1,7 @@
 ###
   EnablePlaceholder jQuery plugin.
   https://github.com/marioizquierdo/enablePlaceholder
-  version 1.1.1 (Aug 16, 2011)
+  version 1.2.1 (Aug 30, 2011)
   
   Copyright (c) 2011 Mario Izquierdo
   Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
@@ -53,11 +53,6 @@ $.fn.enablePlaceholder = (options) ->
     # Hide placeholder on focusin and show again on focusout if input.val() is empty
     on_focusin_clear_placeholder input, settings
     on_focusout_show_placeholder input, settings
-    
-    # Clear placeholder on form submit
-    input.parents('form').first().submit ->
-      input.clearPlaceholder settings
-      true
     
     # Clear placeholder before leave or reload the page
     $(window).unload ->

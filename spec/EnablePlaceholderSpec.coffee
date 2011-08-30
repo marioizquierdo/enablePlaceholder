@@ -1,4 +1,8 @@
 describe "enablePlaceholder Plugin", ->
+  
+  input = undefined # input[type=text] or textarea
+  textinput = 'name': 'input[type=text]', 'selector': '#form input[type=text][placeholder]'
+  textarea =  'name': 'textarea',         'selector': '#form textarea[placeholder]'
 
   beforeEach ->
     loadFixtures 'form.html'
@@ -13,15 +17,11 @@ describe "enablePlaceholder Plugin", ->
     it "the plugin should do nothing if $.support.placeholder is true", ->
       $.support.placeholder = true
       this.after -> $.support.placeholder = false
-      input = $('#form input[type=text]')
+      input = $(textinput.selector)
       input.enablePlaceholder()
       expect(input).not.toShowPlaceholder()
   
   describe "enablePlaceholder()", ->
-    input = undefined # input[type=text] or textarea
-    textinput = 'name': 'input[type=text]', 'selector': '#form input[type=text][placeholder]'
-    textarea =  'name': 'textarea',         'selector': '#form textarea[placeholder]'
-    
     $.each [textinput, textarea], (i, element) ->
         
       describe "on a #{element.name}", ->
@@ -62,19 +62,18 @@ describe "enablePlaceholder Plugin", ->
       
       it "should not submit the placeholder in the form", ->
         $('#form *[placeholder]').enablePlaceholder()
-        expect($('#form input[type=text][placeholder]')).toShowPlaceholder()
-        $('form').submit (event) -> event.preventDefault() # do not reload the page
+        expect($(textinput.selector)).toShowPlaceholder()
+        $('form').submit (event) -> # stub submit event to not reload the page
+          event.preventDefault()
+          $(window).trigger('unload') # stub window.unload event that should clear the placeholder
         $('form').submit()
-        expect($('#form input[type=text][placeholder]')).not.toShowPlaceholder()
+        expect($(textinput.selector)).not.toShowPlaceholder()
 
     
-    describe "with option withPlaceholderClass", ->
-      phclass = undefined
+    describe "with option withPlaceholderClass", ->    
+      phclass = 'myawesomeplacelolderclass'
       
-      beforeEach ->
-        input = $('#form input[type=text][placeholder]')
-        phclass = 'myawesomeplacelolderclass'
-        input.enablePlaceholder 'withPlaceholderClass': phclass
+      beforeEach -> input = $(textinput.selector).enablePlaceholder('withPlaceholderClass': phclass)
       
       it "should show the placeholder with the specified class", ->
         expect(input).toShowPlaceholder 'withPlaceholderClass': phclass
@@ -84,3 +83,14 @@ describe "enablePlaceholder Plugin", ->
         expect(input).not.toShowPlaceholder 'withPlaceholderClass': phclass
         input.focusout()
         expect(input).toShowPlaceholder 'withPlaceholderClass': phclass
+    
+  describe "clearPlaceholder()", ->
+    beforeEach -> 
+      input = $(textinput.selector)
+      input.showPlaceholder()
+      expect(input).toShowPlaceholder()
+      input.clearPlaceholder()
+  
+    it "should empty the placeholder", ->
+      expect($(textinput.selector)).not.toShowPlaceholder()
+

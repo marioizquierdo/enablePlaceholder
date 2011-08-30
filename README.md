@@ -91,7 +91,7 @@ My recommendation on this is to give the placeholder a simple light gray color, 
 
 If you want total control over the placeholder, you can override the browser default behavior:
 
-    // Use enablePlaceholder for all browsers
+    // Use enablePlaceholder in all browsers
     $.EnablePlaceholder.alsoForModernBrowsers = true;
     
 This way you can be sure that the placeholder is going to be displayed exactly the same for all browsers, and can be safely styled with the 'placeholder' class.
@@ -106,8 +106,7 @@ All them do nothing if the browser already supports the HTML5 placeholder attrib
 
   * `enablePlaceholder(options)`: The basic method that makes the element to simulate the HTML5 placeholder behavior.
   * `updatePlaceholder(new_placeholder_text, options)`: Change or add the placeholder attribute text, and update the value of the field if it is showing the placeholder text.
-  * `showPlaceholder(options)`: Rarely needed, it shows the placeholder attribute if the value is empty.
-  * `clearPlaceholder(options)`: If the field is showing the placeholder text, then it's removed.
+  * `clearPlaceholder(options)` and `showPlaceholder(options)`: Rarely needed, they show or hide the placeholder if there is no text in the input field.
   
 Options:
 
@@ -126,6 +125,27 @@ You can write this:
     $('textarea').enablePlaceholder();
     $('input').enablePlaceholder();
     $('input').updatePlaceholder('search something');
+    
+## Using with AJAX forms ##
+
+The enablePlaceholder plugin sets the input value to the attr placeholder text and adds the .placeholder class to simulate the placeholder behavior.
+
+Because the input has a value, if you submit a form the placeholder value could be accidentally submitted. This is prevent by clearing the placeholder on window.unload.
+But the ajax forms do not fire the window.unload event.
+
+If you want to prevent your ajax form to send the placeholder text when the input is empty, you can use the provided methods `clearPlaceholder()` and `showPlaceholder()`:
+
+For example, using the [jquery form plugin](http://jquery.malsup.com/form/), you can do this:
+
+    $('#ajaxForm').ajaxForm({
+      beforeSubmit: function (formData, $form, options) { 
+        $('#ajaxForm *[placeholder]').clearPlaceholder(); // clear placeholder before submit
+      },
+      success: function (responseText, statusText, xhr, $form) {
+        $('#ajaxForm *[placeholder]').showPlaceholder(); // and show it again on success
+      }
+    });
+
 
 
 ## Full Example ##
@@ -196,11 +216,12 @@ what I do is copy-paste in an online minimizer like this [online YUI compressor]
 
 ## Changelog ##
 
-2011-08-29  Mario Izquierdo Martinez <tothemario@gmail.com>
+2011-08-30  Mario Izquierdo Martinez <tothemario@gmail.com>
 
   * tag version 1.2.1
-  * bugfix: clearPlaceholder has to remove the placeholder attribute to not show it in new browsers
   * rewrite plugin code and spec in coffee script
+  * do not clearPlaceholder on form submit, it's enough with window.unload event
+  * add info in the README file about using enablePlaceholder with ajax forms
 
 2011-08-29  Mario Izquierdo Martinez <tothemario@gmail.com>
 

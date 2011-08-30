@@ -2,7 +2,7 @@
   /*
     EnablePlaceholder jQuery plugin.
     https://github.com/marioizquierdo/enablePlaceholder
-    version 1.1.1 (Aug 16, 2011)
+    version 1.2.1 (Aug 30, 2011)
     
     Copyright (c) 2011 Mario Izquierdo
     Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
@@ -41,10 +41,6 @@
     return execute_plugin_method(this, options, function(input, settings) {
       on_focusin_clear_placeholder(input, settings);
       on_focusout_show_placeholder(input, settings);
-      input.parents('form').first().submit(function() {
-        input.clearPlaceholder(settings);
-        return true;
-      });
       $(window).unload(function() {
         input.clearPlaceholder(settings);
         return true;

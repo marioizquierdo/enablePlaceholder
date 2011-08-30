@@ -1,5 +1,15 @@
 (function() {
   describe("enablePlaceholder Plugin", function() {
+    var input, textarea, textinput;
+    input = void 0;
+    textinput = {
+      'name': 'input[type=text]',
+      'selector': '#form input[type=text][placeholder]'
+    };
+    textarea = {
+      'name': 'textarea',
+      'selector': '#form textarea[placeholder]'
+    };
     beforeEach(function() {
       return loadFixtures('form.html');
     });
@@ -12,27 +22,16 @@
         }
       });
       return it("the plugin should do nothing if $.support.placeholder is true", function() {
-        var input;
         $.support.placeholder = true;
         this.after(function() {
           return $.support.placeholder = false;
         });
-        input = $('#form input[type=text]');
+        input = $(textinput.selector);
         input.enablePlaceholder();
         return expect(input).not.toShowPlaceholder();
       });
     });
-    return describe("enablePlaceholder()", function() {
-      var input, textarea, textinput;
-      input = void 0;
-      textinput = {
-        'name': 'input[type=text]',
-        'selector': '#form input[type=text][placeholder]'
-      };
-      textarea = {
-        'name': 'textarea',
-        'selector': '#form textarea[placeholder]'
-      };
+    describe("enablePlaceholder()", function() {
       $.each([textinput, textarea], function(i, element) {
         describe("on a " + element.name, function() {
           beforeEach(function() {
@@ -97,21 +96,20 @@
         });
         return it("should not submit the placeholder in the form", function() {
           $('#form *[placeholder]').enablePlaceholder();
-          expect($('#form input[type=text][placeholder]')).toShowPlaceholder();
+          expect($(textinput.selector)).toShowPlaceholder();
           $('form').submit(function(event) {
-            return event.preventDefault();
+            event.preventDefault();
+            return $(window).trigger('unload');
           });
           $('form').submit();
-          return expect($('#form input[type=text][placeholder]')).not.toShowPlaceholder();
+          return expect($(textinput.selector)).not.toShowPlaceholder();
         });
       });
       return describe("with option withPlaceholderClass", function() {
         var phclass;
-        phclass = void 0;
+        phclass = 'myawesomeplacelolderclass';
         beforeEach(function() {
-          input = $('#form input[type=text][placeholder]');
-          phclass = 'myawesomeplacelolderclass';
-          return input.enablePlaceholder({
+          return input = $(textinput.selector).enablePlaceholder({
             'withPlaceholderClass': phclass
           });
         });
@@ -130,6 +128,17 @@
             'withPlaceholderClass': phclass
           });
         });
+      });
+    });
+    return describe("clearPlaceholder()", function() {
+      beforeEach(function() {
+        input = $(textinput.selector);
+        input.showPlaceholder();
+        expect(input).toShowPlaceholder();
+        return input.clearPlaceholder();
+      });
+      return it("should empty the placeholder", function() {
+        return expect($(textinput.selector)).not.toShowPlaceholder();
       });
     });
   });
