@@ -1,7 +1,7 @@
 EnablePlaceholder jQuery plugin
 ===============================
 
-A very simple and lightweight jQuery plugin which enables HTML5 placeholder behavior for old browsers,
+A very simple and lightweight (1.7Kb) jQuery plugin which enables HTML5 placeholder behavior for old browsers,
 focused on KISS principle, it does not support password placeholders.
 
 Compared to many other placeholder plugins out there, 
@@ -38,12 +38,11 @@ You can give it a try in the [live demo](http://jsfiddle.net/tothemario/ePVZq/em
  * Allows the user to write exactly the same text as the placeholder, and recognizes it as non-placeholder text
  * Has the option "withPlaceholderClass" that allow to change the CSS class added to the field element when the placeholder is present
  * Adds the jQuery.support.placeholder attribute to easily check if the browser supports the HTML5 placeholder
- * Creates the jQuery method `enablePlaceholder()` to activate the placeholder behavior, that is enough for most of cases, but also has the functions `showPlaceholder()`, `clearPlaceholder()` and `updatePlaceholder(text)` to give extra flexibility to the developer
-
+ * Creates the jQuery method `enablePlaceholder()` to activate the placeholder behavior, that is enough for most of cases, but also has the functions `showPlaceholder()`, `clearPlaceholder()` and `updatePlaceholder(text)` to give extra flexibility for corner cases
 
 ## Requirements: ##
 
-  * [jQuery](http://jquery.com/) 1.4 or higher
+  * [jQuery](http://jquery.com/) 1.4 or higher. Recommended 1.6
 
 
 ## Intallation and Usage ##
@@ -52,7 +51,7 @@ You can give it a try in the [live demo](http://jsfiddle.net/tothemario/ePVZq/em
 
 Download the [jquery.enablePlaceholder.min](https://github.com/marioizquierdo/enablePlaceholder/raw/master/src/jquery.enablePlaceholder.min.js) script (or the [uncompressed version](https://github.com/marioizquierdo/enablePlaceholder/raw/master/src/jquery.enablePlaceholder.js)).
 
-Load the jQuery library, and then, the enablePlaceholder plugin in your HTML head section:
+Load the jQuery library, and then, the enablePlaceholder plugin in your HTML head section, for example:
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
     <script type="text/javascript" src="/javascripts/jquery/plugins/jquery.enablePlaceholder.min.js"></script>
@@ -118,7 +117,7 @@ Defaults: Instead of specify options on different places, you can specify the op
     $('input').enablePlaceholder({"withPlaceholderClass": 'myclass'});
     $('input').updatePlaceholder('search something', {"withPlaceholderClass": 'myclass'});
     
-You can write this:
+You could write this:
 
     $.EnablePlaceholder.defaults.withPlaceholderClass = 'myClass';
     
@@ -128,24 +127,40 @@ You can write this:
     
 ## Using with AJAX forms ##
 
-The enablePlaceholder plugin sets the input value to the attr placeholder text and adds the .placeholder class to simulate the placeholder behavior.
+The enablePlaceholder plugin sets the input value to the attr placeholder text and adds the `.placeholder` class to simulate the placeholder behavior.
 
-Because the input has a value, if you submit a form the placeholder value could be accidentally submitted. This is prevent by clearing the placeholder on window.unload.
-But the ajax forms do not fire the window.unload event.
+Because the input has a value, if you submit a form the placeholder value could be accidentally submitted. 
 
-If you want to prevent your ajax form to send the placeholder text when the input is empty, you can use the provided methods `clearPlaceholder()` and `showPlaceholder()`:
+This is prevent by clearing the placeholder on window.unload and input.patrents('form').submit, that will work for most cases.
+
+What happen with ajax forms is that the placeholder is cleared on submit but the page does not refresh. If you want to recover the placeholder you can use the provided method `showPlaceholder()`:
 
 For example, using the [jquery form plugin](http://jquery.malsup.com/form/), you can do this:
 
-    $('#ajaxForm').ajaxForm({
-      beforeSubmit: function (formData, $form, options) { 
-        $('#ajaxForm *[placeholder]').clearPlaceholder(); // clear placeholder before submit
-      },
+    var form = $('#ajaxForm');
+    var placeholderElements = form.find('*[placeholder]');
+    
+    placeholderElements.enablePlaceholder();
+    form.ajaxForm({
       success: function (responseText, statusText, xhr, $form) {
-        $('#ajaxForm *[placeholder]').showPlaceholder(); // and show it again on success
+        placeholderElements.showPlaceholder();  // show the placeholder again on success.
       }
     });
 
+If for any reason the form.submit event is not fired and you want to manually clear the placeholder before submit, you can use the provided method `clearPlaceholder()`:
+
+For example, to send the form using ajax when click on a button, if no window.unload or form.submit events are fired, you can clear the placeholder yourself:
+    
+    var form = $('#ajaxForm');
+    var placeholderElements = form.find('*[placeholder]');
+    
+    placeholderElements.enablePlaceholder();
+    $('#button-to-submit').click(function () {
+      placeholderElements.clearPlaceholder();                      // clear the input value if the placeholder is present.
+      $.post('ajax/test.json', form.serialize(), function (data) { // perform custom ajax request
+        placeholderElements.showPlaceholder();                     // and show placeholder again on success.
+      });
+    });
 
 
 ## Full Example ##
@@ -193,7 +208,8 @@ HTML page with placeholder support for old browsers. This is a good simple examp
   * [jsFiddle Sandbox](http://jsfiddle.net/tothemario/ePVZq/)
   * [EnablePlaceholder project in plugins.jquery.com](http://plugins.jquery.com/project/EnablePlaceholder)
   * [Info on styling the HTML5 placeholder](http://blog.ajcw.com/2011/02/styling-the-html5-placeholder/)
-    
+  
+
 ## Contributing to enablePlaceholder ##
 
 You can easily test the plugin just cloning the github repository and opening the file `SpecRunner.html`.
@@ -215,6 +231,12 @@ what I do is copy-paste in an online minimizer like this [online YUI compressor]
 
 
 ## Changelog ##
+
+2011-10-02  Mario Izquierdo Martinez <tothemario@gmail.com>
+
+  * tag version 1.2.2
+  * due to a IE error, has to recover the clearPlaceholder on form submit (because sometimes IE does not fire window.unload after for submit).
+  * update README
 
 2011-08-30  Mario Izquierdo Martinez <tothemario@gmail.com>
 
