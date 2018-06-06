@@ -214,7 +214,7 @@ HTML page with placeholder support for old browsers. This is a good simple examp
 
 You can easily test the plugin just cloning the github repository and opening the file `SpecRunner.html`.
 
-This will open and run the EnablePlaceholderSpec, that is a [Jasmine](http://pivotal.github.com/jasmine/) test suite. This way, you can play with the source code and run tests to be sure you didn't broke anything big.
+This will open and run the EnablePlaceholderSpec, that is a [Jasmine](https://jasmine.github.io/) test suite. This way, you can play with the source code and run tests to be sure you didn't broke anything big.
 
 Also the live demo runs over [jsfiddle](http://jsfiddle.net/tothemario/ePVZq/), just open the fiddle and touch whatever you want.
 
